@@ -21,7 +21,7 @@ public class Client extends Thread {
 
     private static int numberOfTransactions;        /* Number of transactions to process */
     private static int maxNbTransactions;            /* Maximum number of transactions */
-    private static Transactions[] transaction;    /* main.java.threading.Transactions to be processed */
+    private static Transactions[] transactions;    /* main.java.threading.Transactions to be processed */
     private static Network objNetwork;            /* main.java.threading.Client object to handle network operations */
     private String clientOperation;                    /* sending or receiving */
 
@@ -36,7 +36,7 @@ public class Client extends Thread {
             System.out.println("\n Initializing client sending application ...");
             numberOfTransactions = 0;
             maxNbTransactions = 100;
-            transaction = new Transactions[maxNbTransactions];
+            transactions = new Transactions[maxNbTransactions];
             objNetwork = new Network("client");
             clientOperation = operation;
             System.out.println("\n Initializing the transactions ... ");
@@ -112,11 +112,11 @@ public class Client extends Thread {
         }
         while (inputStream.hasNextLine()) {
             try {
-                transaction[i] = new Transactions();
-                transaction[i].setAccountNumber(inputStream.next());            /* Read account number */
-                transaction[i].setOperationType(inputStream.next());            /* Read transaction type */
-                transaction[i].setTransactionAmount(inputStream.nextDouble());  /* Read transaction amount */
-                transaction[i].setTransactionStatus("pending");                 /* Set current transaction status */
+                transactions[i] = new Transactions();
+                transactions[i].setAccountNumber(inputStream.next());            /* Read account number */
+                transactions[i].setOperationType(inputStream.next());            /* Read transaction type */
+                transactions[i].setTransactionAmount(inputStream.nextDouble());  /* Read transaction amount */
+                transactions[i].setTransactionStatus("pending");                 /* Set current transaction status */
                 i++;
             } catch (InputMismatchException e) {
                 System.out.println("Line " + i + "file transactions.txt invalid input");
@@ -144,11 +144,11 @@ public class Client extends Thread {
         while (i < getNumberOfTransactions()) {
             // while( objNetwork.getInBufferStatus().equals("full") );     /* Alternatively, busy-wait until the network input buffer is available */
 
-            transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
+            transactions[i].setTransactionStatus("sent");   /* Set current transaction status */
 
-            System.out.println("\n DEBUG : main.java.threading.Client.sendTransactions() - sending transaction on account " + transaction[i].getAccountNumber());
+            System.out.println("\n DEBUG : main.java.threading.Client.sendTransactions() - sending transaction on account " + transactions[i].getAccountNumber());
 
-            objNetwork.send(transaction[i]);                            /* Transmit current transaction */
+            objNetwork.send(transactions[i]);                            /* Transmit current transaction */
             i++;
         }
 
@@ -195,6 +195,11 @@ public class Client extends Thread {
         Transactions transact = new Transactions();
         long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
 
+        if (getClientOperation().equals("sending")) {
+            for (int i = 0; i < getNumberOfTransactions(); i++) {
+                objNetwork.send(transactions[i]);
+            }
+        }
         /* Implement the code for the run method */
     }
 }

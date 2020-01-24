@@ -496,8 +496,17 @@ public class Network extends Thread {
     public void run() {
         System.out.println("\n DEBUG : main.java.threading.Network.run() - starting network thread");
 
+        connect(getClientIP());
+        connect(getServerIP());
+
         while (true) {
             /* Implement the code for the run method */
+            if (true) {
+                break;
+            }
         }
+
+        disconnect(getServerIP());
+        disconnect(getClientIP());
     }
 }

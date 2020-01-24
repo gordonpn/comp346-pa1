@@ -22,7 +22,7 @@ In a client-server system, the client application sends requests to a server app
 through a network connection. In such system, the user interface is implemented in the
 client and the database is stored in the server.
 You are required to implement a client-server application to process banking
-transactions such as withdrawals and deposits. In modern banking systems, a costumer
+transactions such as withdrawals and deposits. In modern banking systems, a customer
 accesses a bank account using an access card at an ATM, at the counter or on the web.
 ```
 - Implementation.
@@ -72,7 +72,7 @@ the completed transactions.
 In case the input and output network buffers are full or empty each client or
 server thread must yield the cpu using the Java method Thread.yield(). The
 network thread executes an infinite loop that ends when both client and server
-threads have disconnected. In case the client or sever threads are still connected
+threads have disconnected. In case the client or server threads are still connected
 the network thread must continuously yield the cpu.
 ```
 
@@ -170,7 +170,7 @@ Account number 92318 Account Balance 2400.0 Message done
 Account number 42520 Account Balance 1000.0 Message done
 Account number 61612 Account Balance 25.0 Message done
 Account number 12535 Account Balance 750.0 Message done
-Terminating client receiving thread - Running time 24
+Terminating client receiving thread - Running time 24 milliseconds
 Terminating server thread - Running time 63 milliseconds
 Terminating network thread - Client disconnected Server disconnected
 ```
