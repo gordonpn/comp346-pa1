@@ -11,7 +11,7 @@ package threading;
  *
  * @author Kerly Titus
  */
-public class Accounts {
+public class Account {
 
     private String accountNumber;       /* Unique account number */
     private String accountType;         /* chequing, saving, credit */
@@ -25,7 +25,7 @@ public class Accounts {
      * @param
      * @return
      */
-    Accounts() {
+    Account() {
         accountNumber = " ";
         accountType = " ";
         firstName = " ";

@@ -41,7 +41,7 @@ elements, so the network indicates whether they are full or empty.
 ```
 The main.java.threading.Client class reads all the transactions from a file (transaction.txt) and
 saves them in an array (transaction[]). A transaction is implemented by the
-main.java.threading.Transactions.class.
+main.java.threading.Transaction.class.
 Using the send() method of main.java.threading.Network class the client transfers the transactions
 to the network input buffer and it yields the cpu in case the network input buffer
 is full.
