@@ -496,24 +496,13 @@ public class Network extends Thread {
     public void run() {
         System.out.println("\n DEBUG : Network.run() - starting network thread");
 
-//        connect(getClientIP());
-//        connect(getServerIP());
-
         while (true) {
             /* Implement the code for the run method */
-//            if (true) {
-//                break;
-//            }
             if (clientConnectionStatus.equals("disconnected") && serverConnectionStatus.equals("disconnected")) {
                 System.out.println("\n Terminating network thread - Client disconnected Server disconnected");
                 break;
             }
-            yield();
-
-
+            Thread.yield();
         }
-
-//        disconnect(getServerIP());
-//        disconnect(getClientIP());
     }
 }
