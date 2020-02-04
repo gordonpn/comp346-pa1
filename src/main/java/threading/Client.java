@@ -159,7 +159,7 @@ public class Client extends Thread {
 
         while (i < getNumberOfTransactions()) {
             while (objNetwork.getInBufferStatus().equals("full")) {
-                yield();
+                Thread.yield();
             }
             // while( objNetwork.getInBufferStatus().equals("full") );     /* Alternatively, busy-wait until the network input buffer is available */
 
@@ -169,6 +169,7 @@ public class Client extends Thread {
 
             objNetwork.send(transactions[i]);                            /* Transmit current transaction */
             i++;
+
         }
 
     }
@@ -183,8 +184,8 @@ public class Client extends Thread {
         int i = 0;     /* Index of transaction array */
 
         while (i < getNumberOfTransactions()) {
-            while (objNetwork.getInBufferStatus().equals("empty")) {
-                yield();
+            while (objNetwork.getOutBufferStatus().equals("empty")) {
+                Thread.yield();
             }
             // while( objNetwork.getOutBufferStatus().equals("empty"));  	/* Alternatively, busy-wait until the network output buffer is available */
 
@@ -220,17 +221,17 @@ public class Client extends Thread {
 
         if (getClientOperation().equals("sending")) {
             sendClientStartTime = System.currentTimeMillis();
+
             sendTransactions();
+
             sendClientEndTime = System.currentTimeMillis();
             System.out.println("\n Terminating client sending thread - " + " Running time " + (sendClientEndTime - sendClientStartTime) + " milliseconds");
         }
 
-        if (getClientOperation().equals("receiving")) {
+        else if (getClientOperation().equals("receiving")) {
             receiveClientStartTime = System.currentTimeMillis();
 
-            for (int i = 0; i < getNumberOfTransactions(); i++) {
-                receiveTransactions(transactions[i]);
-            }
+            receiveTransactions(transact);
 
             receiveClientEndTime = System.currentTimeMillis();
             System.out.println("\n Terminating client receiving thread - " + " Running time " + (receiveClientEndTime - receiveClientStartTime) + " milliseconds");

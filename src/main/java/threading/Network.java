@@ -414,7 +414,7 @@ public class Network extends Thread {
      * @return
      */
     public boolean transferIn(Transaction inPacket) {
-        System.out.println("\n DEBUG : Network.transferIn - account number " + inComingPacket[outputIndexServer].getAccountNumber());
+        System.out.println("\n DEBUG : Network.transferIn() - account number " + inComingPacket[outputIndexServer].getAccountNumber());
         inPacket.setAccountNumber(inComingPacket[outputIndexServer].getAccountNumber());
         inPacket.setOperationType(inComingPacket[outputIndexServer].getOperationType());
         inPacket.setTransactionAmount(inComingPacket[outputIndexServer].getTransactionAmount());
@@ -496,14 +496,21 @@ public class Network extends Thread {
     public void run() {
         System.out.println("\n DEBUG : Network.run() - starting network thread");
 
-        connect(getClientIP());
-        connect(getServerIP());
+//        connect(getClientIP());
+//        connect(getServerIP());
 
         while (true) {
             /* Implement the code for the run method */
-            if (true) {
+//            if (true) {
+//                break;
+//            }
+            if (clientConnectionStatus.equals("disconnected") && serverConnectionStatus.equals("disconnected")) {
+                System.out.println("\n Terminating network thread - Client disconnected Server disconnected");
                 break;
             }
+            yield();
+
+
         }
 
 //        disconnect(getServerIP());
