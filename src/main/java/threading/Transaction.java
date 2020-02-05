@@ -10,7 +10,7 @@ package threading;
  *
  * @author Kerly Titus
  */
-public class Transactions {
+public class Transaction {
 
     private String accountNumber;       /* Account number */
     private String operationType;       /* Operation type : deposit, withdrawal, query */
@@ -25,7 +25,7 @@ public class Transactions {
      * @param
      * @return
      */
-    Transactions() {
+    Transaction() {
         accountNumber = " ";
         operationType = " ";
         transactionAmount = 0.00;
