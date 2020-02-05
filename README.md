@@ -190,7 +190,5 @@ Terminating network thread - Client disconnected Server disconnected
 ```
 ▪ Source codes in Java.
 ▪ Output test cases.
-▪ I have included DEBUG flags in the source code in order to help you trace the
-program but once your program works properly you should put the DEBUG
-flags in comments.
+▪ I have included DEBUG flags in the source code in order to help you trace the program but once your program works properly you should put the DEBUG flags in comments.
 ```

@@ -93,22 +93,6 @@ public class Client extends Thread {
         clientOperation = operation;
     }
 
-    public static Transaction[] getTransactions() {
-        return transactions;
-    }
-
-    public static void setTransactions(Transaction[] transactions) {
-        Client.transactions = transactions;
-    }
-
-    public static int getMaxNbTransactions() {
-        return maxNbTransactions;
-    }
-
-    public static void setMaxNbTransactions(int maxNbTransactions) {
-        Client.maxNbTransactions = maxNbTransactions;
-    }
-
     /**
      * Reading of the transactions from an input file
      *
@@ -142,7 +126,7 @@ public class Client extends Thread {
         }
         setNumberOfTransactions(i);        /* Record the number of transactions processed */
 
-        System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
+//        System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
 
         inputStream.close();
 
@@ -165,13 +149,12 @@ public class Client extends Thread {
 
             transactions[i].setTransactionStatus("sent");   /* Set current transaction status */
 
-            System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transactions[i].getAccountNumber());
+//            System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transactions[i].getAccountNumber());
 
             objNetwork.send(transactions[i]);                            /* Transmit current transaction */
             i++;
 
         }
-
     }
 
     /**
@@ -191,7 +174,7 @@ public class Client extends Thread {
 
             objNetwork.receive(transact);                                /* Receive updated transaction from the network buffer */
 
-            System.out.println("\n DEBUG : Client.receiveTransactions() - receiving updated transaction on account " + transact.getAccountNumber());
+//            System.out.println("\n DEBUG : Client.receiveTransactions() - receiving updated transaction on account " + transact.getAccountNumber());
 
             System.out.println(transact);                                /* Display updated transaction */
             i++;
@@ -216,25 +199,26 @@ public class Client extends Thread {
      */
     public void run() {
         Transaction transact = new Transaction();
-        long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
         /* Implement the code for the run method */
 
         if (getClientOperation().equals("sending")) {
-            sendClientStartTime = System.currentTimeMillis();
+            long sendClientStartTime = System.currentTimeMillis();
 
             sendTransactions();
+            System.out.println("\n Terminating client sending thread");
 
-            sendClientEndTime = System.currentTimeMillis();
-            System.out.println("\n Terminating client sending thread - " + " Running time " + (sendClientEndTime - sendClientStartTime) + " milliseconds");
+            long sendClientEndTime = System.currentTimeMillis();
+            System.out.println("\n Sending client thread - Running time " + (sendClientEndTime - sendClientStartTime) + " milliseconds");
         }
 
         if (getClientOperation().equals("receiving")) {
-            receiveClientStartTime = System.currentTimeMillis();
+            long receiveClientStartTime = System.currentTimeMillis();
 
             receiveTransactions(transact);
+            System.out.println("\n Terminating client receiving thread");
 
-            receiveClientEndTime = System.currentTimeMillis();
-            System.out.println("\n Terminating client receiving thread - " + " Running time " + (receiveClientEndTime - receiveClientStartTime) + " milliseconds");
+            long receiveClientEndTime = System.currentTimeMillis();
+            System.out.println("\n Receiving client thread - Running time " + (receiveClientEndTime - receiveClientStartTime) + " milliseconds");
 
             objNetwork.disconnect(objNetwork.getClientIP());
         }
